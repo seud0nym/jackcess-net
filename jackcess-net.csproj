@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.2.5</Version>
+    <Copyright>Copyright (c) 2008 Health Market Science, Inc.</Copyright>
+    <Authors>Health Market Science, Inc.,seud0nym</Authors>
+    <Company>Health Market Science, Inc.</Company>
+    <Description>Port of version 1.2.5 of the Java Jackcess library, using the Sharpen Eclipse plugin and extending the Sharpen C# uililty classes from the ngit project (https://github.com/mono/ngit) based on the blog post by Paul Du Bois: https://pauldb-blog.tumblr.com/post/14916717048/a-guide-to-sharpen-a-great-tool-for-converting</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/seud0nym/jackcess-net</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\sharpen\BigDecimal.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\empty.mdb" />
+    <None Remove="src\empty2003.mdb" />
+    <None Remove="src\empty2007.accdb" />
+    <None Remove="src\empty2010.accdb" />
+    <None Remove="src\index_codes_ext_gen.txt" />
+    <None Remove="src\index_codes_ext_genleg.txt" />
+    <None Remove="src\index_codes_gen.txt" />
+    <None Remove="src\index_codes_genleg.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\empty.mdb" />
+    <EmbeddedResource Include="Resources\empty2003.mdb" />
+    <EmbeddedResource Include="Resources\empty2007.accdb" />
+    <EmbeddedResource Include="Resources\empty2010.accdb" />
+    <EmbeddedResource Include="Resources\index_codes_ext_gen.txt" />
+    <EmbeddedResource Include="Resources\index_codes_ext_genleg.txt" />
+    <EmbeddedResource Include="Resources\index_codes_gen.txt" />
+    <EmbeddedResource Include="Resources\index_codes_genleg.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+    <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
+  </ItemGroup>
+
+</Project>
