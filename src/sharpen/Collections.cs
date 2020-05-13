@@ -5,7 +5,7 @@ namespace Sharpen
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	
-	internal static class Collections<T>
+	public static class Collections<T>
 	{
 		static readonly IList<T> empty = new T [0];
 		public static IList<T> EMPTY_SET {
@@ -13,8 +13,8 @@ namespace Sharpen
 		}
 		
 	}
-	
-	internal static class Collections
+
+	public static class Collections
 	{
 		public static int BinarySearch<T>(IList<T> list, T key)
 		{
