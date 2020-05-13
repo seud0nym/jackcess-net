@@ -1067,13 +1067,13 @@ namespace HealthMarketScience.Jackcess
 
 		/// <summary>Decodes a date value.</summary>
 		/// <remarks>Decodes a date value.</remarks>
-		private Column.DateExt ReadDateValue(ByteBuffer buffer)
+		private Column.Date ReadDateValue(ByteBuffer buffer)
 		{
 			// seems access stores dates in the local timezone.  guess you just hope
 			// you read it in the same timezone in which it was written!
 			long dateBits = buffer.GetLong();
 			long time = FromDateDouble(BitConverter.Int64BitsToDouble(dateBits));
-			return new Column.DateExt(time, dateBits);
+			return new Column.Date(time, dateBits);
 		}
 
 		/// <summary>Returns a java long time value converted from an access date double.</summary>
@@ -1096,11 +1096,11 @@ namespace HealthMarketScience.Jackcess
 			}
 			else
 			{
-				if (value is Column.DateExt)
+				if (value is Column.Date)
 				{
 					// this is a Date value previously read from readDateValue().  use the
 					// original bits to store the value so we don't lose any precision
-					buffer.PutLong(((Column.DateExt)value).GetDateBits());
+					buffer.PutLong(((Column.Date)value).GetDateBits());
 				}
 				else
 				{
@@ -1131,7 +1131,7 @@ namespace HealthMarketScience.Jackcess
 		/// <remarks>Gets the timezone offset from UTC for the given time (including DST).</remarks>
 		private long GetTimeZoneOffset(long time)
 		{
-			return (long)TimeZoneInfo.Local.GetUtcOffset(DateTimeOffset.FromUnixTimeMilliseconds(time).DateTime).TotalMilliseconds;
+			return 0L; // (long)TimeZoneInfo.Local.GetUtcOffset(DateTimeOffset.FromUnixTimeMilliseconds(time).DateTime).TotalMilliseconds;
 		}
 
 		/// <summary>Decodes a GUID value.</summary>
@@ -2266,7 +2266,7 @@ namespace HealthMarketScience.Jackcess
 		/// Date subclass which stashes the original date bits, in case we attempt to
 		/// re-write the value (will not lose precision).
 		/// </remarks>
-		public sealed class DateExt
+		public sealed class Date
 		{
 			/// <summary>cached bits of the original date value</summary>
 			[System.NonSerialized]
@@ -2275,7 +2275,7 @@ namespace HealthMarketScience.Jackcess
 			[System.NonSerialized]
 			private readonly long _dateBits;
 
-			public DateExt(long time, long dateBits)
+			public Date(long time, long dateBits)
 			{
 				//extends Date
 				_date = Sharpen.Extensions.CreateDate(time);
@@ -2294,6 +2294,9 @@ namespace HealthMarketScience.Jackcess
 				// Date (in case it is restored outside of the context of jackcess)
 				return Sharpen.Extensions.CreateDate(_date.GetTime());
 			}
+
+			public static implicit operator DateTime(Date d) => d._date;
+			public static explicit operator DateTime?(Date d) => d == null ? (DateTime?)null : d._date;
 		}
 
 		/// <summary>Wrapper for raw column data which can be re-written.</summary>
