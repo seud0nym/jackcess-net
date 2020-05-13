@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 namespace Sharpen
 {
 	using ICSharpCode.SharpZipLib.Zip.Compression;
+	using Org.BouncyCastle.Math.EC.Multiplier;
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;
@@ -359,7 +360,7 @@ namespace Sharpen
 		public static DateTime CreateDate (long milliSecondsSinceEpoch)
 		{
 			long num = EPOCH_TICKS + (milliSecondsSinceEpoch * 10000);
-			return new DateTime (num);
+			return num > DateTime.MaxValue.Ticks ? DateTime.MaxValue : num < DateTime.MinValue.Ticks ? DateTime.MinValue : new DateTime(num);
 		}
 
 		public static DateTimeOffset MillisToDateTimeOffset (long milliSecondsSinceEpoch, long offsetMinutes)
