@@ -84,12 +84,12 @@
 
         public BigDecimal(BigInteger value)
         {
-            this.value = new SqlDecimal(Convert.ToDecimal(value));
+            this.value = new SqlDecimal(Convert.ToDecimal(value.ToString()));
         }
 
         public BigDecimal(BigInteger value, int scale)
         {
-            this.value = new SqlDecimal(Convert.ToDecimal(value) * (decimal)Math.Pow(10, -scale));
+            this.value = new SqlDecimal(Convert.ToDecimal(value.ToString()) * (decimal)Math.Pow(10, -scale));
         }
 
         public BigDecimal(decimal value)
@@ -105,6 +105,11 @@
         public BigDecimal(String s)
         {
             this.value = new SqlDecimal(Convert.ToDecimal(s));
+        }
+
+        public BigDecimal Abs()
+        {
+            return (Signum() < 0 ? Negate() : this);
         }
 
         public int CompareTo(BigDecimal other)
@@ -147,6 +152,11 @@
             return new BigDecimal(this.UnscaledValue(), newScale);
         }
 
+        public int Signum()
+        {
+            return this.value.IsPositive ? 1 : this.value == 0 ? 0 : -1;
+        }
+
         public BigInteger UnscaledValue()
         {
             return new BigInteger(this.value.Value * (decimal)Math.Pow(10, this.value.Scale));
@@ -181,6 +191,9 @@
         {
             return value.ToSqlDouble().Value;
         }
+
+        public static implicit operator decimal(BigDecimal d) => d == null ? (decimal)0 : d.value.Value;
+        public static implicit operator decimal?(BigDecimal d) => d == null ? (decimal?)null : d.value.Value;
     }
 
     public sealed class Byte : Number
