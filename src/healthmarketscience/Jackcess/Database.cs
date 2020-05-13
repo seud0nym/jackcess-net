@@ -82,7 +82,7 @@ namespace HealthMarketScience.Jackcess
 		/// resources.
 		/// </remarks>
 		/// <usage>_general_field_</usage>
-		public static readonly string DEFAULT_RESOURCE_PATH = "Jackcess.NET.Resources."; //"com/healthmarketscience/jackcess/";
+		public static readonly string DEFAULT_RESOURCE_PATH = "jackcess-net.Resources."; //"com/healthmarketscience/jackcess/";
 
 		/// <summary>the default sort order for table columns.</summary>
 		/// <remarks>the default sort order for table columns.</remarks>
