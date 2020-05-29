@@ -23,65 +23,83 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Sharpen
 {
-	public class LinkedHashSet<T>: AbstractSet<T>
-	{
-		private List<T> list = new List<T> ();
-		private HashSet<T> table = new HashSet<T> ();
-		
-		public LinkedHashSet ()
-		{
-		}
-		
-		public LinkedHashSet (IEnumerable<T> items)
-		{
-			foreach (T t in items)
-				AddItem (t);
-		}
-		
-		public override bool AddItem (T element)
-		{
-			if (table.Add (element)) {
-				list.Add (element);
-				return true;
-			}
-			return false;
-		}
-		
-		public override void Clear ()
-		{
-			list.Clear ();
-			table.Clear ();
-		}
-		
-		public override bool Contains (object item)
-		{
-			return table.Contains ((T)item);
-		}
-		
-		public override bool Remove (object element)
-		{
-			if (table.Remove ((T)element)) {
-				list.Remove ((T)element);
-				return true;
-			}
-			return false;
-		}
-		
-		public override int Count {
-			get {
-				return table.Count;
-			}
-		}
-		
-		public override Iterator<T> Iterator ()
-		{
-			return list.AsIterable ().Iterator ();
-		}
-	}
+    public class LinkedHashSet<T> : AbstractSet<T>
+    {
+        private readonly List<T> list = new List<T>();
+        private readonly HashSet<T> table = new HashSet<T>();
+
+        public LinkedHashSet()
+        {
+        }
+
+        public LinkedHashSet(IEnumerable<T> items)
+        {
+            foreach (T t in items)
+                AddItem(t);
+        }
+
+        public override bool AddItem(T element)
+        {
+            if (table.Add(element))
+            {
+                list.Add(element);
+                return true;
+            }
+            return false;
+        }
+
+        public override void Clear()
+        {
+            list.Clear();
+            table.Clear();
+        }
+
+        public override bool Contains(object item)
+        {
+            return table.Contains((T)item);
+        }
+
+        public override bool Remove(object element)
+        {
+            if (table.Remove((T)element))
+            {
+                list.Remove((T)element);
+                return true;
+            }
+            return false;
+        }
+
+        public override int Count
+        {
+            get
+            {
+                return table.Count;
+            }
+        }
+
+        public override Iterator<T> Iterator()
+        {
+            return list.AsIterable().Iterator();
+        }
+
+        public override string ToString()
+        {
+            var s = new StringBuilder();
+            var c = "";
+            s.Append("[");
+            foreach (var o in table)
+            {
+                s.Append(c).Append(o?.ToString());
+                c = ",";
+            }
+            s.Append(" ]");
+            return s.ToString();
+        }
+    }
 }
 
