@@ -2,14 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.2.5.1</Version>
+    <Version>1.2.5.2</Version>
     <Copyright>Copyright (c) 2008 Health Market Science, Inc.</Copyright>
-    <Authors>Health Market Science, Inc.,seud0nym</Authors>
+    <Authors>Original: Health Market Science, Inc. Ported from Java by seud0nym</Authors>
     <Company>Health Market Science, Inc.</Company>
-    <Description>Port of version 1.2.5 of the Java Jackcess library, using the Sharpen Eclipse plugin and extending the Sharpen C# uililty classes from the ngit project (https://github.com/mono/ngit) based on the blog post by Paul Du Bois: https://pauldb-blog.tumblr.com/post/14916717048/a-guide-to-sharpen-a-great-tool-for-converting</Description>
+    <Description>Port of version 1.2.5 of the Java Jackcess library (https://jackcess.sourceforge.io/)</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/seud0nym/jackcess-net</RepositoryUrl>
+    <PackageReleaseNotes>Ported using the Sharpen Eclipse plugin and extending the Sharpen C# uililty classes from the ngit project (https://github.com/mono/ngit). 
+Based on the blog post by Paul Du Bois: https://pauldb-blog.tumblr.com/post/14916717048/a-guide-to-sharpen-a-great-tool-for-converting</PackageReleaseNotes>
+    <PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
