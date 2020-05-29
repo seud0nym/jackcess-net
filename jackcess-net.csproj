@@ -7,7 +7,7 @@
     <Authors>Original: Health Market Science, Inc. Ported from Java by seud0nym</Authors>
     <Company>Health Market Science, Inc.</Company>
     <Description>Port of version 1.2.5 of the Java Jackcess library (https://jackcess.sourceforge.io/)</Description>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/seud0nym/jackcess-net</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/seud0nym/jackcess-net</RepositoryUrl>
     <PackageReleaseNotes>Ported using the Sharpen Eclipse plugin and extending the Sharpen C# uililty classes from the ngit project (https://github.com/mono/ngit). 
