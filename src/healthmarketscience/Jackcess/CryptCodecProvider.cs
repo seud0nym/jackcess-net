@@ -25,71 +25,70 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using System.Text;
-using HealthMarketScience.Jackcess;
 using Sharpen;
+using System.Text;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Implementation of CodecProvider with support for some forms of Microsoft
-	/// Access and Microsoft Money file encryption.
-	/// </summary>
-	/// <remarks>
-	/// Implementation of CodecProvider with support for some forms of Microsoft
-	/// Access and Microsoft Money file encryption.
-	/// </remarks>
-	/// <author>Vladimir Berezniker</author>
-	public class CryptCodecProvider : CodecProvider
-	{
-		private string _password;
+    /// <summary>
+    /// Implementation of CodecProvider with support for some forms of Microsoft
+    /// Access and Microsoft Money file encryption.
+    /// </summary>
+    /// <remarks>
+    /// Implementation of CodecProvider with support for some forms of Microsoft
+    /// Access and Microsoft Money file encryption.
+    /// </remarks>
+    /// <author>Vladimir Berezniker</author>
+    public class CryptCodecProvider : CodecProvider
+    {
+        private string _password;
 
-		public CryptCodecProvider() : this(null)
-		{
-		}
+        public CryptCodecProvider() : this(null)
+        {
+        }
 
-		public CryptCodecProvider(string password)
-		{
-			_password = password;
-		}
+        public CryptCodecProvider(string password)
+        {
+            _password = password;
+        }
 
-		public virtual string GetPassword()
-		{
-			return _password;
-		}
+        public virtual string GetPassword()
+        {
+            return _password;
+        }
 
-		public virtual void SetPassword(string newPassword)
-		{
-			_password = newPassword;
-		}
+        public virtual void SetPassword(string newPassword)
+        {
+            _password = newPassword;
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual CodecHandler CreateHandler(PageChannel channel, Encoding charset)
-		{
-			JetFormat format = channel.GetFormat();
-			switch (format.CODEC_TYPE)
-			{
-				case JetFormat.CodecType.NONE:
-				{
-					// no encoding, all good
-					return DefaultCodecProvider.DUMMY_HANDLER;
-				}
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual CodecHandler CreateHandler(PageChannel channel, Encoding charset)
+        {
+            JetFormat format = channel.GetFormat();
+            switch (format.CODEC_TYPE)
+            {
+                case JetFormat.CodecType.NONE:
+                    {
+                        // no encoding, all good
+                        return DefaultCodecProvider.DUMMY_HANDLER;
+                    }
 
-				case JetFormat.CodecType.JET:
-				{
-					return JetCryptCodecHandler.Create(channel);
-				}
+                case JetFormat.CodecType.JET:
+                    {
+                        return JetCryptCodecHandler.Create(channel);
+                    }
 
-				case JetFormat.CodecType.MSISAM:
-				{
-					return MSISAMCryptCodecHandler.Create(GetPassword(), channel, charset);
-				}
+                case JetFormat.CodecType.MSISAM:
+                    {
+                        return MSISAMCryptCodecHandler.Create(GetPassword(), channel, charset);
+                    }
 
-				default:
-				{
-					throw new RuntimeException("Unknown codec type " + format.CODEC_TYPE);
-				}
-			}
-		}
-	}
+                default:
+                    {
+                        throw new RuntimeException("Unknown codec type " + format.CODEC_TYPE);
+                    }
+            }
+        }
+    }
 }

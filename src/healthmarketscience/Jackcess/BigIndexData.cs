@@ -25,62 +25,59 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
-using Sharpen;
-
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Implementation of an Access table index which supports large indexes.</summary>
-	/// <remarks>Implementation of an Access table index which supports large indexes.</remarks>
-	/// <author>James Ahlborn</author>
-	public class BigIndexData : IndexData
-	{
-		/// <summary>Cache which manages the index pages</summary>
-		private readonly IndexPageCache _pageCache;
+    /// <summary>Implementation of an Access table index which supports large indexes.</summary>
+    /// <remarks>Implementation of an Access table index which supports large indexes.</remarks>
+    /// <author>James Ahlborn</author>
+    public class BigIndexData : IndexData
+    {
+        /// <summary>Cache which manages the index pages</summary>
+        private readonly IndexPageCache _pageCache;
 
-		protected internal BigIndexData(Table table, int number, int uniqueEntryCount, int
-			 uniqueEntryCountOffset) : base(table, number, uniqueEntryCount, uniqueEntryCountOffset
-			)
-		{
-			_pageCache = new IndexPageCache(this);
-		}
+        protected internal BigIndexData(Table table, int number, int uniqueEntryCount, int
+             uniqueEntryCountOffset) : base(table, number, uniqueEntryCount, uniqueEntryCountOffset
+            )
+        {
+            _pageCache = new IndexPageCache(this);
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		protected internal override void UpdateImpl()
-		{
-			_pageCache.Write();
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        protected internal override void UpdateImpl()
+        {
+            _pageCache.Write();
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		protected internal override void ReadIndexEntries()
-		{
-			_pageCache.SetRootPageNumber(GetRootPageNumber());
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        protected internal override void ReadIndexEntries()
+        {
+            _pageCache.SetRootPageNumber(GetRootPageNumber());
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		protected internal override IndexData.DataPage FindDataPage(IndexData.Entry entry
-			)
-		{
-			return _pageCache.FindCacheDataPage(entry);
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        protected internal override IndexData.DataPage FindDataPage(IndexData.Entry entry
+            )
+        {
+            return _pageCache.FindCacheDataPage(entry);
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		protected internal override IndexData.DataPage GetDataPage(int pageNumber)
-		{
-			return _pageCache.GetCacheDataPage(pageNumber);
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        protected internal override IndexData.DataPage GetDataPage(int pageNumber)
+        {
+            return _pageCache.GetCacheDataPage(pageNumber);
+        }
 
-		public override string ToString()
-		{
-			return base.ToString() + "\n" + _pageCache.ToString();
-		}
+        public override string ToString()
+        {
+            return base.ToString() + "\n" + _pageCache.ToString();
+        }
 
-		/// <summary>Used by unit tests to validate the internal status of the index.</summary>
-		/// <remarks>Used by unit tests to validate the internal status of the index.</remarks>
-		/// <exception cref="System.IO.IOException"></exception>
-		internal virtual void Validate()
-		{
-			_pageCache.Validate();
-		}
-	}
+        /// <summary>Used by unit tests to validate the internal status of the index.</summary>
+        /// <remarks>Used by unit tests to validate the internal status of the index.</remarks>
+        /// <exception cref="System.IO.IOException"></exception>
+        internal virtual void Validate()
+        {
+            _pageCache.Validate();
+        }
+    }
 }

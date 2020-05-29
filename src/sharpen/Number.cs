@@ -147,6 +147,8 @@
 
         public BigDecimal SetScale(int newScale)
         {
+            if (newScale == this.value.Scale)
+                return this;
             if ((this.value.Precision - this.value.Scale) <= 0)
                 throw new ArithmeticException("Rounding necessary");
             return new BigDecimal(this.UnscaledValue(), newScale);

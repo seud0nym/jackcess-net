@@ -27,49 +27,47 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a query which will be executed via
-	/// ODBC.
-	/// </summary>
-	/// <remarks>
-	/// Concrete Query subclass which represents a query which will be executed via
-	/// ODBC.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class PassthroughQuery : HealthMarketScience.Jackcess.Query.Query
-	{
-		public PassthroughQuery(string name, IList<Query.Row> rows, int objectId) : base(
-			name, rows, objectId, Query.Type.PASSTHROUGH)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a query which will be executed via
+    /// ODBC.
+    /// </summary>
+    /// <remarks>
+    /// Concrete Query subclass which represents a query which will be executed via
+    /// ODBC.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class PassthroughQuery : HealthMarketScience.Jackcess.Query.Query
+    {
+        public PassthroughQuery(string name, IList<Query.Row> rows, int objectId) : base(
+            name, rows, objectId, Query.Type.PASSTHROUGH)
+        {
+        }
 
-		public virtual string GetConnectionString()
-		{
-			return GetTypeRow().name1;
-		}
+        public virtual string GetConnectionString()
+        {
+            return GetTypeRow().name1;
+        }
 
-		public virtual string GetPassthroughString()
-		{
-			return GetTypeRow().expression;
-		}
+        public virtual string GetPassthroughString()
+        {
+            return GetTypeRow().expression;
+        }
 
-		public override bool SupportsStandardClauses()
-		{
-			return false;
-		}
+        public override bool SupportsStandardClauses()
+        {
+            return false;
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			string pt = GetPassthroughString();
-			if (pt != null)
-			{
-				builder.Append(pt);
-			}
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            string pt = GetPassthroughString();
+            if (pt != null)
+            {
+                builder.Append(pt);
+            }
+        }
+    }
 }

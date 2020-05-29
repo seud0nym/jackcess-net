@@ -26,26 +26,25 @@ King of Prussia, PA 19406
 */
 
 using System;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Scsu
 {
-	/// <summary>
-	/// The input character array or input byte array contained
-	/// illegal sequences of bytes or characters
-	/// </summary>
-	[System.Serializable]
-	public class IllegalInputException : Exception
-	{
-		private const long serialVersionUID = 1L;
+    /// <summary>
+    /// The input character array or input byte array contained
+    /// illegal sequences of bytes or characters
+    /// </summary>
+    [System.Serializable]
+    public class IllegalInputException : Exception
+    {
+        private const long serialVersionUID = 1L;
 
-		public IllegalInputException() : base("The input character array or input byte array contained illegal sequences of bytes or characters"
-			)
-		{
-		}
+        public IllegalInputException() : base("The input character array or input byte array contained illegal sequences of bytes or characters"
+            )
+        {
+        }
 
-		public IllegalInputException(string s) : base(s)
-		{
-		}
-	}
+        public IllegalInputException(string s) : base(s)
+        {
+        }
+    }
 }

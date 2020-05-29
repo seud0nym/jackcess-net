@@ -27,71 +27,69 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a row update query, e.g.:
-	/// <code>UPDATE <table> SET <newValues></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class UpdateQuery : HealthMarketScience.Jackcess.Query.Query
-	{
-		public UpdateQuery(string name, IList<Query.Row> rows, int objectId) : base(name, 
-			rows, objectId, Query.Type.UPDATE)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a row update query, e.g.:
+    /// <code>UPDATE <table> SET <newValues></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class UpdateQuery : HealthMarketScience.Jackcess.Query.Query
+    {
+        public UpdateQuery(string name, IList<Query.Row> rows, int objectId) : base(name,
+            rows, objectId, Query.Type.UPDATE)
+        {
+        }
 
-		public virtual IList<string> GetTargetTables()
-		{
-			return base.GetFromTables();
-		}
+        public virtual IList<string> GetTargetTables()
+        {
+            return base.GetFromTables();
+        }
 
-		public virtual string GetRemoteDbPath()
-		{
-			return base.GetFromRemoteDbPath();
-		}
+        public virtual string GetRemoteDbPath()
+        {
+            return base.GetFromRemoteDbPath();
+        }
 
-		public virtual string GetRemoteDbType()
-		{
-			return base.GetFromRemoteDbType();
-		}
+        public virtual string GetRemoteDbType()
+        {
+            return base.GetFromRemoteDbType();
+        }
 
-		public virtual IList<string> GetNewValues()
-		{
-			return (new _RowFormatter_65(GetColumnRows())).Format();
-		}
+        public virtual IList<string> GetNewValues()
+        {
+            return (new _RowFormatter_65(GetColumnRows())).Format();
+        }
 
-		private sealed class _RowFormatter_65 : Query.RowFormatter
-		{
-			public _RowFormatter_65(IList<Query.Row> baseArg1) : base(baseArg1)
-			{
-			}
+        private sealed class _RowFormatter_65 : Query.RowFormatter
+        {
+            public _RowFormatter_65(IList<Query.Row> baseArg1) : base(baseArg1)
+            {
+            }
 
-			protected internal override void Format(StringBuilder builder, Query.Row row)
-			{
-				HealthMarketScience.Jackcess.Query.Query.ToOptionalQuotedExpr(builder, row.name2, 
-					true).Append(" = ").Append(row.expression);
-			}
-		}
+            protected internal override void Format(StringBuilder builder, Query.Row row)
+            {
+                HealthMarketScience.Jackcess.Query.Query.ToOptionalQuotedExpr(builder, row.name2,
+                    true).Append(" = ").Append(row.expression);
+            }
+        }
 
-		public override string GetWhereExpression()
-		{
-			return base.GetWhereExpression();
-		}
+        public override string GetWhereExpression()
+        {
+            return base.GetWhereExpression();
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			builder.Append("UPDATE ").Append(GetTargetTables());
-			ToRemoteDb(builder, GetRemoteDbPath(), GetRemoteDbType());
-			builder.Append(QueryFormat.NEWLINE).Append("SET ").Append(GetNewValues());
-			string whereExpr = GetWhereExpression();
-			if (whereExpr != null)
-			{
-				builder.Append(QueryFormat.NEWLINE).Append("WHERE ").Append(whereExpr);
-			}
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            builder.Append("UPDATE ").Append(GetTargetTables());
+            ToRemoteDb(builder, GetRemoteDbPath(), GetRemoteDbType());
+            builder.Append(QueryFormat.NEWLINE).Append("SET ").Append(GetNewValues());
+            string whereExpr = GetWhereExpression();
+            if (whereExpr != null)
+            {
+                builder.Append(QueryFormat.NEWLINE).Append("WHERE ").Append(whereExpr);
+            }
+        }
+    }
 }

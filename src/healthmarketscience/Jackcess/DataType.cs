@@ -25,32 +25,29 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
-using Sharpen;
-
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Access data type</summary>
-	/// <author>Tim McCune</author>
-	public enum DataType
-	{
-		BOOLEAN,
-		BYTE,
-		INT,
-		LONG,
-		MONEY,
-		FLOAT,
-		DOUBLE,
-		SHORT_DATE_TIME,
-		BINARY,
-		TEXT,
-		OLE,
-		MEMO,
-		UNKNOWN_0D,
-		GUID,
-		NUMERIC,
-		UNKNOWN_11,
-		UNSUPPORTED_FIXEDLEN,
-		UNSUPPORTED_VARLEN
-	}
+    /// <summary>Access data type</summary>
+    /// <author>Tim McCune</author>
+    public enum DataType
+    {
+        BOOLEAN,
+        BYTE,
+        INT,
+        LONG,
+        MONEY,
+        FLOAT,
+        DOUBLE,
+        SHORT_DATE_TIME,
+        BINARY,
+        TEXT,
+        OLE,
+        MEMO,
+        UNKNOWN_0D,
+        GUID,
+        NUMERIC,
+        UNKNOWN_11,
+        UNSUPPORTED_FIXEDLEN,
+        UNSUPPORTED_VARLEN
+    }
 }

@@ -25,36 +25,33 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
-using Sharpen;
-
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Interface for handling comparisons between column values.</summary>
-	/// <remarks>Interface for handling comparisons between column values.</remarks>
-	/// <author>James Ahlborn</author>
-	public interface ColumnMatcher
-	{
-		/// <summary>
-		/// Returns
-		/// <code>true</code>
-		/// if the given value1 should be considered a match for
-		/// the given value2 for the given column in the given table,
-		/// <code>false</code>
-		/// otherwise.
-		/// </summary>
-		/// <param name="table">the relevant table</param>
-		/// <param name="columnName">the name of the relevant column within the table</param>
-		/// <param name="value1">
-		/// the first value to match (may be
-		/// <code>null</code>
-		/// )
-		/// </param>
-		/// <param name="value2">
-		/// the second value to match (may be
-		/// <code>null</code>
-		/// )
-		/// </param>
-		bool Matches(Table table, string columnName, object value1, object value2);
-	}
+    /// <summary>Interface for handling comparisons between column values.</summary>
+    /// <remarks>Interface for handling comparisons between column values.</remarks>
+    /// <author>James Ahlborn</author>
+    public interface ColumnMatcher
+    {
+        /// <summary>
+        /// Returns
+        /// <code>true</code>
+        /// if the given value1 should be considered a match for
+        /// the given value2 for the given column in the given table,
+        /// <code>false</code>
+        /// otherwise.
+        /// </summary>
+        /// <param name="table">the relevant table</param>
+        /// <param name="columnName">the name of the relevant column within the table</param>
+        /// <param name="value1">
+        /// the first value to match (may be
+        /// <code>null</code>
+        /// )
+        /// </param>
+        /// <param name="value2">
+        /// the second value to match (may be
+        /// <code>null</code>
+        /// )
+        /// </param>
+        bool Matches(Table table, string columnName, object value1, object value2);
+    }
 }

@@ -26,40 +26,38 @@ King of Prussia, PA 19406
 */
 
 using System.Collections.Generic;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Interface which allows customization of the behavior of the
-	/// <code>Database</code> export methods.
-	/// </summary>
-	/// <remarks>
-	/// Interface which allows customization of the behavior of the
-	/// <code>Database</code> export methods.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public interface ExportFilter
-	{
-		/// <summary>The columns that should be used to create the exported file.</summary>
-		/// <remarks>The columns that should be used to create the exported file.</remarks>
-		/// <param name="columns">
-		/// the columns as determined by the export code, may be directly
-		/// modified and returned
-		/// </param>
-		/// <returns>the columns to use when creating the export file</returns>
-		/// <exception cref="System.IO.IOException"></exception>
-		IList<Column> FilterColumns(IList<Column> columns);
+    /// <summary>
+    /// Interface which allows customization of the behavior of the
+    /// <code>Database</code> export methods.
+    /// </summary>
+    /// <remarks>
+    /// Interface which allows customization of the behavior of the
+    /// <code>Database</code> export methods.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public interface ExportFilter
+    {
+        /// <summary>The columns that should be used to create the exported file.</summary>
+        /// <remarks>The columns that should be used to create the exported file.</remarks>
+        /// <param name="columns">
+        /// the columns as determined by the export code, may be directly
+        /// modified and returned
+        /// </param>
+        /// <returns>the columns to use when creating the export file</returns>
+        /// <exception cref="System.IO.IOException"></exception>
+        IList<Column> FilterColumns(IList<Column> columns);
 
-		/// <summary>The desired values for the row.</summary>
-		/// <remarks>The desired values for the row.</remarks>
-		/// <param name="row">
-		/// the row data as determined by the import code, may be directly
-		/// modified
-		/// </param>
-		/// <returns>the row data as it should be written to the import table</returns>
-		/// <exception cref="System.IO.IOException"></exception>
-		object[] FilterRow(object[] row);
-	}
+        /// <summary>The desired values for the row.</summary>
+        /// <remarks>The desired values for the row.</remarks>
+        /// <param name="row">
+        /// the row data as determined by the import code, may be directly
+        /// modified
+        /// </param>
+        /// <returns>the row data as it should be written to the import table</returns>
+        /// <exception cref="System.IO.IOException"></exception>
+        object[] FilterRow(object[] row);
+    }
 }

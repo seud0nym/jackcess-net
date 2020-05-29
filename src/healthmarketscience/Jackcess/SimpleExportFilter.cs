@@ -26,39 +26,37 @@ King of Prussia, PA 19406
 */
 
 using System.Collections.Generic;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Simple concrete implementation of ImportFilter which just returns the given
-	/// values.
-	/// </summary>
-	/// <remarks>
-	/// Simple concrete implementation of ImportFilter which just returns the given
-	/// values.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class SimpleExportFilter : ExportFilter
-	{
-		public static readonly HealthMarketScience.Jackcess.SimpleExportFilter INSTANCE = 
-			new HealthMarketScience.Jackcess.SimpleExportFilter();
+    /// <summary>
+    /// Simple concrete implementation of ImportFilter which just returns the given
+    /// values.
+    /// </summary>
+    /// <remarks>
+    /// Simple concrete implementation of ImportFilter which just returns the given
+    /// values.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class SimpleExportFilter : ExportFilter
+    {
+        public static readonly HealthMarketScience.Jackcess.SimpleExportFilter INSTANCE =
+            new HealthMarketScience.Jackcess.SimpleExportFilter();
 
-		public SimpleExportFilter()
-		{
-		}
+        public SimpleExportFilter()
+        {
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual IList<Column> FilterColumns(IList<Column> columns)
-		{
-			return columns;
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual IList<Column> FilterColumns(IList<Column> columns)
+        {
+            return columns;
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual object[] FilterRow(object[] row)
-		{
-			return row;
-		}
-	}
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual object[] FilterRow(object[] row)
+        {
+            return row;
+        }
+    }
 }

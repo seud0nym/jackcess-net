@@ -25,60 +25,59 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
 using Org.BouncyCastle.Crypto.Parameters;
 using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>CodecHandler for Jet databases.</summary>
-	/// <remarks>CodecHandler for Jet databases.</remarks>
-	/// <author>Vladimir Berezniker</author>
-	public class JetCryptCodecHandler : BaseCryptCodecHandler
-	{
-		internal const int ENCODING_KEY_LENGTH = unchecked((int)(0x4));
+    /// <summary>CodecHandler for Jet databases.</summary>
+    /// <remarks>CodecHandler for Jet databases.</remarks>
+    /// <author>Vladimir Berezniker</author>
+    public class JetCryptCodecHandler : BaseCryptCodecHandler
+    {
+        internal const int ENCODING_KEY_LENGTH = unchecked((int)(0x4));
 
-		private readonly byte[] _encodingKey;
+        private readonly byte[] _encodingKey;
 
-		internal JetCryptCodecHandler(byte[] encodingKey) : base()
-		{
-			_encodingKey = encodingKey;
-		}
+        internal JetCryptCodecHandler(byte[] encodingKey) : base()
+        {
+            _encodingKey = encodingKey;
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public static CodecHandler Create(PageChannel channel)
-		{
-			ByteBuffer buffer = ReadHeaderPage(channel);
-			JetFormat format = channel.GetFormat();
-			byte[] encodingKey = new byte[ENCODING_KEY_LENGTH];
-			buffer.Position(format.OFFSET_ENCODING_KEY);
-			buffer.Get(encodingKey);
-			bool clearData = true;
-			foreach (byte byteVal in encodingKey)
-			{
-				if (byteVal != 0)
-				{
-					clearData = false;
-				}
-			}
-			return (clearData ? DefaultCodecProvider.DUMMY_HANDLER : new HealthMarketScience.Jackcess.JetCryptCodecHandler
-				(encodingKey));
-		}
+        /// <exception cref="System.IO.IOException"></exception>
+        public static CodecHandler Create(PageChannel channel)
+        {
+            ByteBuffer buffer = ReadHeaderPage(channel);
+            JetFormat format = channel.GetFormat();
+            byte[] encodingKey = new byte[ENCODING_KEY_LENGTH];
+            buffer.Position(format.OFFSET_ENCODING_KEY);
+            buffer.Get(encodingKey);
+            bool clearData = true;
+            foreach (byte byteVal in encodingKey)
+            {
+                if (byteVal != 0)
+                {
+                    clearData = false;
+                }
+            }
+            return (clearData ? DefaultCodecProvider.DUMMY_HANDLER : new HealthMarketScience.Jackcess.JetCryptCodecHandler
+                (encodingKey));
+        }
 
-		public override void DecodePage(ByteBuffer buffer, int pageNumber)
-		{
-			if ((pageNumber == 0) || (pageNumber > GetMaxEncodedPage()))
-			{
-				// not encoded
-				return;
-			}
-			byte[] key = ApplyPageNumber(_encodingKey, 0, pageNumber);
-			DecodePage(buffer, new KeyParameter(key));
-		}
+        public override void DecodePage(ByteBuffer buffer, int pageNumber)
+        {
+            if ((pageNumber == 0) || (pageNumber > GetMaxEncodedPage()))
+            {
+                // not encoded
+                return;
+            }
+            byte[] key = ApplyPageNumber(_encodingKey, 0, pageNumber);
+            DecodePage(buffer, new KeyParameter(key));
+        }
 
-		protected internal virtual int GetMaxEncodedPage()
-		{
-			return int.MaxValue;
-		}
-	}
+        protected internal virtual int GetMaxEncodedPage()
+        {
+            return int.MaxValue;
+        }
+    }
 }

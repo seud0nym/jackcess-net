@@ -27,26 +27,24 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a select query, e.g.:
-	/// <code>SELECT <columns> FROM <tables> WHERE <expression></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class SelectQuery : BaseSelectQuery
-	{
-		public SelectQuery(string name, IList<Query.Row> rows, int objectId) : base(name, 
-			rows, objectId, Query.Type.SELECT)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a select query, e.g.:
+    /// <code>SELECT <columns> FROM <tables> WHERE <expression></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class SelectQuery : BaseSelectQuery
+    {
+        public SelectQuery(string name, IList<Query.Row> rows, int objectId) : base(name,
+            rows, objectId, Query.Type.SELECT)
+        {
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			ToSQLSelectString(builder, true);
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            ToSQLSelectString(builder, true);
+        }
+    }
 }

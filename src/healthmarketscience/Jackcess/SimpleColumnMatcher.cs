@@ -26,29 +26,27 @@ King of Prussia, PA 19406
 */
 
 using Apache.Commons.Lang;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Simple concrete implementation of ColumnMatcher which test for equality.
-	/// 	</summary>
-	/// <remarks>Simple concrete implementation of ColumnMatcher which test for equality.
-	/// 	</remarks>
-	/// <author>James Ahlborn</author>
-	public class SimpleColumnMatcher : ColumnMatcher
-	{
-		public static readonly HealthMarketScience.Jackcess.SimpleColumnMatcher INSTANCE = 
-			new HealthMarketScience.Jackcess.SimpleColumnMatcher();
+    /// <summary>Simple concrete implementation of ColumnMatcher which test for equality.
+    /// 	</summary>
+    /// <remarks>Simple concrete implementation of ColumnMatcher which test for equality.
+    /// 	</remarks>
+    /// <author>James Ahlborn</author>
+    public class SimpleColumnMatcher : ColumnMatcher
+    {
+        public static readonly HealthMarketScience.Jackcess.SimpleColumnMatcher INSTANCE =
+            new HealthMarketScience.Jackcess.SimpleColumnMatcher();
 
-		public SimpleColumnMatcher()
-		{
-		}
+        public SimpleColumnMatcher()
+        {
+        }
 
-		public virtual bool Matches(Table table, string columnName, object value1, object
-			 value2)
-		{
-			return ObjectUtils.Equals(value1, value2);
-		}
-	}
+        public virtual bool Matches(Table table, string columnName, object value1, object
+             value2)
+        {
+            return ObjectUtils.Equals(value1, value2);
+        }
+    }
 }

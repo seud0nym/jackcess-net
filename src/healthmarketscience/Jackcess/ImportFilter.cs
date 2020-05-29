@@ -25,48 +25,47 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using System.Collections.Generic;
-using HealthMarketScience.Jackcess;
 using Sharpen;
+using System.Collections.Generic;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Interface which allows customization of the behavior of the
-	/// <code>Database<&lt;/code> import/copy methods.
-	/// </summary>
-	/// <remarks>
-	/// Interface which allows customization of the behavior of the
-	/// <code>Database<&lt;/code> import/copy methods.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public interface ImportFilter
-	{
-		/// <summary>The columns that should be used to create the imported table.</summary>
-		/// <remarks>The columns that should be used to create the imported table.</remarks>
-		/// <param name="destColumns">
-		/// the columns as determined by the import code, may be
-		/// directly modified and returned
-		/// </param>
-		/// <param name="srcColumns">
-		/// the sql metadata, only available if importing from a
-		/// JDBC source
-		/// </param>
-		/// <returns>the columns to use when creating the import table</returns>
-		/// <exception cref="Sharpen.SQLException"></exception>
-		/// <exception cref="System.IO.IOException"></exception>
-		IList<Column> FilterColumns(IList<Column> destColumns, ResultSetMetaData srcColumns
-			);
+    /// <summary>
+    /// Interface which allows customization of the behavior of the
+    /// <code>Database<&lt;/code> import/copy methods.
+    /// </summary>
+    /// <remarks>
+    /// Interface which allows customization of the behavior of the
+    /// <code>Database<&lt;/code> import/copy methods.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public interface ImportFilter
+    {
+        /// <summary>The columns that should be used to create the imported table.</summary>
+        /// <remarks>The columns that should be used to create the imported table.</remarks>
+        /// <param name="destColumns">
+        /// the columns as determined by the import code, may be
+        /// directly modified and returned
+        /// </param>
+        /// <param name="srcColumns">
+        /// the sql metadata, only available if importing from a
+        /// JDBC source
+        /// </param>
+        /// <returns>the columns to use when creating the import table</returns>
+        /// <exception cref="Sharpen.SQLException"></exception>
+        /// <exception cref="System.IO.IOException"></exception>
+        IList<Column> FilterColumns(IList<Column> destColumns, ResultSetMetaData srcColumns
+            );
 
-		/// <summary>The desired values for the row.</summary>
-		/// <remarks>The desired values for the row.</remarks>
-		/// <param name="row">
-		/// the row data as determined by the import code, may be directly
-		/// modified
-		/// </param>
-		/// <returns>the row data as it should be written to the import table</returns>
-		/// <exception cref="Sharpen.SQLException"></exception>
-		/// <exception cref="System.IO.IOException"></exception>
-		object[] FilterRow(object[] row);
-	}
+        /// <summary>The desired values for the row.</summary>
+        /// <remarks>The desired values for the row.</remarks>
+        /// <param name="row">
+        /// the row data as determined by the import code, may be directly
+        /// modified
+        /// </param>
+        /// <returns>the row data as it should be written to the import table</returns>
+        /// <exception cref="Sharpen.SQLException"></exception>
+        /// <exception cref="System.IO.IOException"></exception>
+        object[] FilterRow(object[] row);
+    }
 }

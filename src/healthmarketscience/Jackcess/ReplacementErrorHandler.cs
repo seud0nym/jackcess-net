@@ -26,52 +26,50 @@ King of Prussia, PA 19406
 */
 
 using System;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Simple implementation of an ErrorHandler which always returns the
-	/// configured object.
-	/// </summary>
-	/// <remarks>
-	/// Simple implementation of an ErrorHandler which always returns the
-	/// configured object.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class ReplacementErrorHandler : ErrorHandler
-	{
-		private readonly object _replacement;
+    /// <summary>
+    /// Simple implementation of an ErrorHandler which always returns the
+    /// configured object.
+    /// </summary>
+    /// <remarks>
+    /// Simple implementation of an ErrorHandler which always returns the
+    /// configured object.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class ReplacementErrorHandler : ErrorHandler
+    {
+        private readonly object _replacement;
 
-		/// <summary>
-		/// Constructs a ReplacementErrorHandler which replaces all errored values
-		/// with
-		/// <code>null</code>
-		/// .
-		/// </summary>
-		public ReplacementErrorHandler() : this(null)
-		{
-		}
+        /// <summary>
+        /// Constructs a ReplacementErrorHandler which replaces all errored values
+        /// with
+        /// <code>null</code>
+        /// .
+        /// </summary>
+        public ReplacementErrorHandler() : this(null)
+        {
+        }
 
-		/// <summary>
-		/// Constructs a ReplacementErrorHandler which replaces all errored values
-		/// with the given Object.
-		/// </summary>
-		/// <remarks>
-		/// Constructs a ReplacementErrorHandler which replaces all errored values
-		/// with the given Object.
-		/// </remarks>
-		public ReplacementErrorHandler(object replacement)
-		{
-			_replacement = replacement;
-		}
+        /// <summary>
+        /// Constructs a ReplacementErrorHandler which replaces all errored values
+        /// with the given Object.
+        /// </summary>
+        /// <remarks>
+        /// Constructs a ReplacementErrorHandler which replaces all errored values
+        /// with the given Object.
+        /// </remarks>
+        public ReplacementErrorHandler(object replacement)
+        {
+            _replacement = replacement;
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual object HandleRowError(Column column, byte[] columnData, Table.RowState
-			 rowState, Exception error)
-		{
-			return _replacement;
-		}
-	}
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual object HandleRowError(Column column, byte[] columnData, Table.RowState
+             rowState, Exception error)
+        {
+            return _replacement;
+        }
+    }
 }

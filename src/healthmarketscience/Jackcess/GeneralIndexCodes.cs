@@ -25,65 +25,62 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
-using Sharpen;
-
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Various constants used for creating "general" (access 2010+) sort order
-	/// text index entries.
-	/// </summary>
-	/// <remarks>
-	/// Various constants used for creating "general" (access 2010+) sort order
-	/// text index entries.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class GeneralIndexCodes : GeneralLegacyIndexCodes
-	{
-		private static readonly string CODES_FILE = Database.RESOURCE_PATH + "index_codes_gen.txt";
+    /// <summary>
+    /// Various constants used for creating "general" (access 2010+) sort order
+    /// text index entries.
+    /// </summary>
+    /// <remarks>
+    /// Various constants used for creating "general" (access 2010+) sort order
+    /// text index entries.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class GeneralIndexCodes : GeneralLegacyIndexCodes
+    {
+        private static readonly string CODES_FILE = Database.RESOURCE_PATH + "index_codes_gen.txt";
 
-		private static readonly string EXT_CODES_FILE = Database.RESOURCE_PATH + "index_codes_ext_gen.txt";
+        private static readonly string EXT_CODES_FILE = Database.RESOURCE_PATH + "index_codes_ext_gen.txt";
 
-		internal sealed new class Codes
-		{
-			/// <summary>handlers for the first 256 chars.</summary>
-			/// <remarks>
-			/// handlers for the first 256 chars.  use nested class to lazy load the
-			/// handlers
-			/// </remarks>
-			internal static readonly GeneralLegacyIndexCodes.CharHandler[] _values = LoadCodes
-				(CODES_FILE, FIRST_CHAR, LAST_CHAR);
-			// stash the codes in some resource files
-		}
+        internal sealed new class Codes
+        {
+            /// <summary>handlers for the first 256 chars.</summary>
+            /// <remarks>
+            /// handlers for the first 256 chars.  use nested class to lazy load the
+            /// handlers
+            /// </remarks>
+            internal static readonly GeneralLegacyIndexCodes.CharHandler[] _values = LoadCodes
+                (CODES_FILE, FIRST_CHAR, LAST_CHAR);
+            // stash the codes in some resource files
+        }
 
-		internal sealed new class ExtCodes
-		{
-			/// <summary>handlers for the rest of the chars in BMP 0.</summary>
-			/// <remarks>
-			/// handlers for the rest of the chars in BMP 0.  use nested class to
-			/// lazy load the handlers
-			/// </remarks>
-			internal static readonly GeneralLegacyIndexCodes.CharHandler[] _values = LoadCodes
-				(EXT_CODES_FILE, FIRST_EXT_CHAR, LAST_EXT_CHAR);
-		}
+        internal sealed new class ExtCodes
+        {
+            /// <summary>handlers for the rest of the chars in BMP 0.</summary>
+            /// <remarks>
+            /// handlers for the rest of the chars in BMP 0.  use nested class to
+            /// lazy load the handlers
+            /// </remarks>
+            internal static readonly GeneralLegacyIndexCodes.CharHandler[] _values = LoadCodes
+                (EXT_CODES_FILE, FIRST_EXT_CHAR, LAST_EXT_CHAR);
+        }
 
-		internal static readonly GeneralIndexCodes GEN_INSTANCE = new GeneralIndexCodes();
+        internal static readonly GeneralIndexCodes GEN_INSTANCE = new GeneralIndexCodes();
 
-		public GeneralIndexCodes()
-		{
-		}
+        public GeneralIndexCodes()
+        {
+        }
 
-		/// <summary>Returns the CharHandler for the given character.</summary>
-		/// <remarks>Returns the CharHandler for the given character.</remarks>
-		internal override GeneralLegacyIndexCodes.CharHandler GetCharHandler(char c)
-		{
-			if (c <= LAST_CHAR)
-			{
-				return GeneralIndexCodes.Codes._values[c];
-			}
-			int extOffset = AsUnsignedChar(c) - AsUnsignedChar(FIRST_EXT_CHAR);
-			return GeneralIndexCodes.ExtCodes._values[extOffset];
-		}
-	}
+        /// <summary>Returns the CharHandler for the given character.</summary>
+        /// <remarks>Returns the CharHandler for the given character.</remarks>
+        internal override GeneralLegacyIndexCodes.CharHandler GetCharHandler(char c)
+        {
+            if (c <= LAST_CHAR)
+            {
+                return GeneralIndexCodes.Codes._values[c];
+            }
+            int extOffset = AsUnsignedChar(c) - AsUnsignedChar(FIRST_EXT_CHAR);
+            return GeneralIndexCodes.ExtCodes._values[extOffset];
+        }
+    }
 }

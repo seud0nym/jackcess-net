@@ -25,237 +25,236 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using System;
-using HealthMarketScience.Jackcess;
 using Sharpen;
+using System;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Manages a reference to a ByteBuffer.</summary>
-	/// <remarks>Manages a reference to a ByteBuffer.</remarks>
-	/// <author>James Ahlborn</author>
-	public abstract class TempBufferHolder
-	{
-		private static readonly Reference<ByteBuffer> EMPTY_BUFFER_REF = new SoftReference
-			<ByteBuffer>(null);
+    /// <summary>Manages a reference to a ByteBuffer.</summary>
+    /// <remarks>Manages a reference to a ByteBuffer.</remarks>
+    /// <author>James Ahlborn</author>
+    public abstract class TempBufferHolder
+    {
+        private static readonly Reference<ByteBuffer> EMPTY_BUFFER_REF = new SoftReference
+            <ByteBuffer>(null);
 
-		/// <summary>The caching type for the buffer holder.</summary>
-		/// <remarks>The caching type for the buffer holder.</remarks>
-		public enum Type
-		{
-			HARD,
-			SOFT,
-			NONE
-		}
+        /// <summary>The caching type for the buffer holder.</summary>
+        /// <remarks>The caching type for the buffer holder.</remarks>
+        public enum Type
+        {
+            HARD,
+            SOFT,
+            NONE
+        }
 
-		/// <summary>whether or not every get automatically rewinds the buffer</summary>
-		private readonly bool _autoRewind;
+        /// <summary>whether or not every get automatically rewinds the buffer</summary>
+        private readonly bool _autoRewind;
 
-		/// <summary>ByteOrder for all allocated buffers</summary>
-		private readonly ByteOrder _order;
+        /// <summary>ByteOrder for all allocated buffers</summary>
+        private readonly ByteOrder _order;
 
-		/// <summary>the mod count of the current buffer (changes on every realloc)</summary>
-		private int _modCount;
+        /// <summary>the mod count of the current buffer (changes on every realloc)</summary>
+        private int _modCount;
 
-		protected internal TempBufferHolder(bool autoRewind, ByteOrder order)
-		{
-			_autoRewind = autoRewind;
-			_order = order;
-		}
+        protected internal TempBufferHolder(bool autoRewind, ByteOrder order)
+        {
+            _autoRewind = autoRewind;
+            _order = order;
+        }
 
-		/// <returns>
-		/// the modification count of the current buffer (this count is
-		/// changed every time the buffer is reallocated)
-		/// </returns>
-		public virtual int GetModCount()
-		{
-			return _modCount;
-		}
+        /// <returns>
+        /// the modification count of the current buffer (this count is
+        /// changed every time the buffer is reallocated)
+        /// </returns>
+        public virtual int GetModCount()
+        {
+            return _modCount;
+        }
 
-		/// <summary>Creates a new TempBufferHolder.</summary>
-		/// <remarks>Creates a new TempBufferHolder.</remarks>
-		/// <param name="type">the type of reference desired for any created buffer</param>
-		/// <param name="autoRewind">
-		/// whether or not every get automatically rewinds the
-		/// buffer
-		/// </param>
-		public static HealthMarketScience.Jackcess.TempBufferHolder NewHolder(TempBufferHolder.Type
-			 type, bool autoRewind)
-		{
-			return NewHolder(type, autoRewind, PageChannel.DEFAULT_BYTE_ORDER);
-		}
+        /// <summary>Creates a new TempBufferHolder.</summary>
+        /// <remarks>Creates a new TempBufferHolder.</remarks>
+        /// <param name="type">the type of reference desired for any created buffer</param>
+        /// <param name="autoRewind">
+        /// whether or not every get automatically rewinds the
+        /// buffer
+        /// </param>
+        public static HealthMarketScience.Jackcess.TempBufferHolder NewHolder(TempBufferHolder.Type
+             type, bool autoRewind)
+        {
+            return NewHolder(type, autoRewind, PageChannel.DEFAULT_BYTE_ORDER);
+        }
 
-		/// <summary>Creates a new TempBufferHolder.</summary>
-		/// <remarks>Creates a new TempBufferHolder.</remarks>
-		/// <param name="type">the type of reference desired for any created buffer</param>
-		/// <param name="autoRewind">
-		/// whether or not every get automatically rewinds the
-		/// buffer
-		/// </param>
-		/// <param name="order">byte order for all allocated buffers</param>
-		public static HealthMarketScience.Jackcess.TempBufferHolder NewHolder(TempBufferHolder.Type
-			 type, bool autoRewind, ByteOrder order)
-		{
-			switch (type)
-			{
-				case TempBufferHolder.Type.HARD:
-				{
-					return new TempBufferHolder.HardTempBufferHolder(autoRewind, order);
-				}
+        /// <summary>Creates a new TempBufferHolder.</summary>
+        /// <remarks>Creates a new TempBufferHolder.</remarks>
+        /// <param name="type">the type of reference desired for any created buffer</param>
+        /// <param name="autoRewind">
+        /// whether or not every get automatically rewinds the
+        /// buffer
+        /// </param>
+        /// <param name="order">byte order for all allocated buffers</param>
+        public static HealthMarketScience.Jackcess.TempBufferHolder NewHolder(TempBufferHolder.Type
+             type, bool autoRewind, ByteOrder order)
+        {
+            switch (type)
+            {
+                case TempBufferHolder.Type.HARD:
+                    {
+                        return new TempBufferHolder.HardTempBufferHolder(autoRewind, order);
+                    }
 
-				case TempBufferHolder.Type.SOFT:
-				{
-					return new TempBufferHolder.SoftTempBufferHolder(autoRewind, order);
-				}
+                case TempBufferHolder.Type.SOFT:
+                    {
+                        return new TempBufferHolder.SoftTempBufferHolder(autoRewind, order);
+                    }
 
-				case TempBufferHolder.Type.NONE:
-				{
-					return new TempBufferHolder.NoneTempBufferHolder(autoRewind, order);
-				}
+                case TempBufferHolder.Type.NONE:
+                    {
+                        return new TempBufferHolder.NoneTempBufferHolder(autoRewind, order);
+                    }
 
-				default:
-				{
-					throw new InvalidOperationException("Unknown type " + type);
-				}
-			}
-		}
+                default:
+                    {
+                        throw new InvalidOperationException("Unknown type " + type);
+                    }
+            }
+        }
 
-		/// <summary>
-		/// Returns a ByteBuffer of at least the defined page size, with the limit
-		/// set to the page size, and the predefined byteOrder.
-		/// </summary>
-		/// <remarks>
-		/// Returns a ByteBuffer of at least the defined page size, with the limit
-		/// set to the page size, and the predefined byteOrder.  Will be rewound iff
-		/// autoRewind is enabled for this buffer.
-		/// </remarks>
-		public ByteBuffer GetPageBuffer(PageChannel pageChannel)
-		{
-			return GetBuffer(pageChannel, pageChannel.GetFormat().PAGE_SIZE);
-		}
+        /// <summary>
+        /// Returns a ByteBuffer of at least the defined page size, with the limit
+        /// set to the page size, and the predefined byteOrder.
+        /// </summary>
+        /// <remarks>
+        /// Returns a ByteBuffer of at least the defined page size, with the limit
+        /// set to the page size, and the predefined byteOrder.  Will be rewound iff
+        /// autoRewind is enabled for this buffer.
+        /// </remarks>
+        public ByteBuffer GetPageBuffer(PageChannel pageChannel)
+        {
+            return GetBuffer(pageChannel, pageChannel.GetFormat().PAGE_SIZE);
+        }
 
-		/// <summary>
-		/// Returns a ByteBuffer of at least the given size, with the limit set to
-		/// the given size, and the predefined byteOrder.
-		/// </summary>
-		/// <remarks>
-		/// Returns a ByteBuffer of at least the given size, with the limit set to
-		/// the given size, and the predefined byteOrder.  Will be rewound iff
-		/// autoRewind is enabled for this buffer.
-		/// </remarks>
-		public ByteBuffer GetBuffer(PageChannel pageChannel, int size)
-		{
-			ByteBuffer buffer = GetExistingBuffer();
-			if ((buffer == null) || (buffer.Capacity() < size))
-			{
-				buffer = pageChannel.CreateBuffer(size, _order);
-				++_modCount;
-				SetNewBuffer(buffer);
-			}
-			else
-			{
-				buffer.Limit(size);
-			}
-			if (_autoRewind)
-			{
-				buffer.Rewind();
-			}
-			return buffer;
-		}
+        /// <summary>
+        /// Returns a ByteBuffer of at least the given size, with the limit set to
+        /// the given size, and the predefined byteOrder.
+        /// </summary>
+        /// <remarks>
+        /// Returns a ByteBuffer of at least the given size, with the limit set to
+        /// the given size, and the predefined byteOrder.  Will be rewound iff
+        /// autoRewind is enabled for this buffer.
+        /// </remarks>
+        public ByteBuffer GetBuffer(PageChannel pageChannel, int size)
+        {
+            ByteBuffer buffer = GetExistingBuffer();
+            if ((buffer == null) || (buffer.Capacity() < size))
+            {
+                buffer = pageChannel.CreateBuffer(size, _order);
+                ++_modCount;
+                SetNewBuffer(buffer);
+            }
+            else
+            {
+                buffer.Limit(size);
+            }
+            if (_autoRewind)
+            {
+                buffer.Rewind();
+            }
+            return buffer;
+        }
 
-		/// <returns>
-		/// the currently referenced buffer,
-		/// <code>null</code>
-		/// if none
-		/// </returns>
-		public abstract ByteBuffer GetExistingBuffer();
+        /// <returns>
+        /// the currently referenced buffer,
+        /// <code>null</code>
+        /// if none
+        /// </returns>
+        public abstract ByteBuffer GetExistingBuffer();
 
-		/// <summary>Releases any referenced memory.</summary>
-		/// <remarks>Releases any referenced memory.</remarks>
-		public abstract void Clear();
+        /// <summary>Releases any referenced memory.</summary>
+        /// <remarks>Releases any referenced memory.</remarks>
+        public abstract void Clear();
 
-		/// <summary>Sets a new buffer for this holder.</summary>
-		/// <remarks>Sets a new buffer for this holder.</remarks>
-		protected internal abstract void SetNewBuffer(ByteBuffer newBuffer);
+        /// <summary>Sets a new buffer for this holder.</summary>
+        /// <remarks>Sets a new buffer for this holder.</remarks>
+        protected internal abstract void SetNewBuffer(ByteBuffer newBuffer);
 
-		/// <summary>TempBufferHolder which has a hard reference to the buffer.</summary>
-		/// <remarks>TempBufferHolder which has a hard reference to the buffer.</remarks>
-		internal sealed class HardTempBufferHolder : TempBufferHolder
-		{
-			private ByteBuffer _buffer;
+        /// <summary>TempBufferHolder which has a hard reference to the buffer.</summary>
+        /// <remarks>TempBufferHolder which has a hard reference to the buffer.</remarks>
+        internal sealed class HardTempBufferHolder : TempBufferHolder
+        {
+            private ByteBuffer _buffer;
 
-			internal HardTempBufferHolder(bool autoRewind, ByteOrder order) : base(
-				autoRewind, order)
-			{
-			}
+            internal HardTempBufferHolder(bool autoRewind, ByteOrder order) : base(
+                autoRewind, order)
+            {
+            }
 
-			public override ByteBuffer GetExistingBuffer()
-			{
-				return _buffer;
-			}
+            public override ByteBuffer GetExistingBuffer()
+            {
+                return _buffer;
+            }
 
-			protected internal override void SetNewBuffer(ByteBuffer newBuffer)
-			{
-				_buffer = newBuffer;
-			}
+            protected internal override void SetNewBuffer(ByteBuffer newBuffer)
+            {
+                _buffer = newBuffer;
+            }
 
-			public override void Clear()
-			{
-				_buffer = null;
-			}
-		}
+            public override void Clear()
+            {
+                _buffer = null;
+            }
+        }
 
-		/// <summary>TempBufferHolder which has a soft reference to the buffer.</summary>
-		/// <remarks>TempBufferHolder which has a soft reference to the buffer.</remarks>
-		internal sealed class SoftTempBufferHolder : TempBufferHolder
-		{
-			private Reference<ByteBuffer> _buffer = EMPTY_BUFFER_REF;
+        /// <summary>TempBufferHolder which has a soft reference to the buffer.</summary>
+        /// <remarks>TempBufferHolder which has a soft reference to the buffer.</remarks>
+        internal sealed class SoftTempBufferHolder : TempBufferHolder
+        {
+            private Reference<ByteBuffer> _buffer = EMPTY_BUFFER_REF;
 
-			internal SoftTempBufferHolder(bool autoRewind, ByteOrder order) : base(
-				autoRewind, order)
-			{
-			}
+            internal SoftTempBufferHolder(bool autoRewind, ByteOrder order) : base(
+                autoRewind, order)
+            {
+            }
 
-			public override ByteBuffer GetExistingBuffer()
-			{
-				return _buffer.Get();
-			}
+            public override ByteBuffer GetExistingBuffer()
+            {
+                return _buffer.Get();
+            }
 
-			protected internal override void SetNewBuffer(ByteBuffer newBuffer)
-			{
-				_buffer.Clear();
-				_buffer = new SoftReference<ByteBuffer>(newBuffer);
-			}
+            protected internal override void SetNewBuffer(ByteBuffer newBuffer)
+            {
+                _buffer.Clear();
+                _buffer = new SoftReference<ByteBuffer>(newBuffer);
+            }
 
-			public override void Clear()
-			{
-				_buffer.Clear();
-			}
-		}
+            public override void Clear()
+            {
+                _buffer.Clear();
+            }
+        }
 
-		/// <summary>TempBufferHolder which has a no reference to the buffer.</summary>
-		/// <remarks>TempBufferHolder which has a no reference to the buffer.</remarks>
-		internal sealed class NoneTempBufferHolder : TempBufferHolder
-		{
-			internal NoneTempBufferHolder(bool autoRewind, ByteOrder order) : base(
-				autoRewind, order)
-			{
-			}
+        /// <summary>TempBufferHolder which has a no reference to the buffer.</summary>
+        /// <remarks>TempBufferHolder which has a no reference to the buffer.</remarks>
+        internal sealed class NoneTempBufferHolder : TempBufferHolder
+        {
+            internal NoneTempBufferHolder(bool autoRewind, ByteOrder order) : base(
+                autoRewind, order)
+            {
+            }
 
-			public override ByteBuffer GetExistingBuffer()
-			{
-				return null;
-			}
+            public override ByteBuffer GetExistingBuffer()
+            {
+                return null;
+            }
 
-			protected internal override void SetNewBuffer(ByteBuffer newBuffer)
-			{
-			}
+            protected internal override void SetNewBuffer(ByteBuffer newBuffer)
+            {
+            }
 
-			// nothing to do
-			public override void Clear()
-			{
-			}
-			// nothing to do
-		}
-	}
+            // nothing to do
+            public override void Clear()
+            {
+            }
+            // nothing to do
+        }
+    }
 }

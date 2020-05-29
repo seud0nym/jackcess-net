@@ -25,59 +25,57 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using System;
-using HealthMarketScience.Jackcess;
 using HealthMarketScience.Jackcess.Scsu;
-using Sharpen;
+using System;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Implementation of ErrorHandler which is useful for generating debug
-	/// information about bad row data (great for bug reports!).
-	/// </summary>
-	/// <remarks>
-	/// Implementation of ErrorHandler which is useful for generating debug
-	/// information about bad row data (great for bug reports!).  After logging a
-	/// debug entry for the failed column, it will return some sort of replacement
-	/// value, see
-	/// <see cref="ReplacementErrorHandler">ReplacementErrorHandler</see>
-	/// .
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class DebugErrorHandler : ReplacementErrorHandler
-	{
-		/// <summary>
-		/// Constructs a DebugErrorHandler which replaces all errored values with
-		/// <code>null</code>
-		/// .
-		/// </summary>
-		public DebugErrorHandler()
-		{
-		}
+    /// <summary>
+    /// Implementation of ErrorHandler which is useful for generating debug
+    /// information about bad row data (great for bug reports!).
+    /// </summary>
+    /// <remarks>
+    /// Implementation of ErrorHandler which is useful for generating debug
+    /// information about bad row data (great for bug reports!).  After logging a
+    /// debug entry for the failed column, it will return some sort of replacement
+    /// value, see
+    /// <see cref="ReplacementErrorHandler">ReplacementErrorHandler</see>
+    /// .
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class DebugErrorHandler : ReplacementErrorHandler
+    {
+        /// <summary>
+        /// Constructs a DebugErrorHandler which replaces all errored values with
+        /// <code>null</code>
+        /// .
+        /// </summary>
+        public DebugErrorHandler()
+        {
+        }
 
-		/// <summary>
-		/// Constructs a DebugErrorHandler which replaces all errored values with the
-		/// given Object.
-		/// </summary>
-		/// <remarks>
-		/// Constructs a DebugErrorHandler which replaces all errored values with the
-		/// given Object.
-		/// </remarks>
-		public DebugErrorHandler(object replacement) : base(replacement)
-		{
-		}
+        /// <summary>
+        /// Constructs a DebugErrorHandler which replaces all errored values with the
+        /// given Object.
+        /// </summary>
+        /// <remarks>
+        /// Constructs a DebugErrorHandler which replaces all errored values with the
+        /// given Object.
+        /// </remarks>
+        public DebugErrorHandler(object replacement) : base(replacement)
+        {
+        }
 
-		/// <exception cref="System.IO.IOException"></exception>
-		public override object HandleRowError(Column column, byte[] columnData, Table.RowState
-			 rowState, Exception error)
-		{
-			if (Debug.IsDebugEnabled())
-			{
-				Debug.Out("Failed reading column " + column + ", row " + rowState + ", bytes " + 
-					((columnData != null) ? ByteUtil.ToHexString(columnData) : "null"), error);
-			}
-			return base.HandleRowError(column, columnData, rowState, error);
-		}
-	}
+        /// <exception cref="System.IO.IOException"></exception>
+        public override object HandleRowError(Column column, byte[] columnData, Table.RowState
+             rowState, Exception error)
+        {
+            if (Debug.IsDebugEnabled())
+            {
+                Debug.Out("Failed reading column " + column + ", row " + rowState + ", bytes " +
+                    ((columnData != null) ? ByteUtil.ToHexString(columnData) : "null"), error);
+            }
+            return base.HandleRowError(column, columnData, rowState, error);
+        }
+    }
 }

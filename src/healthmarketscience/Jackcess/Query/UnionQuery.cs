@@ -25,77 +25,76 @@ Suite 200
 King of Prussia, PA 19406
 */
 
+using Sharpen;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a UNION query, e.g.:
-	/// <code>SELECT <query1> UNION SELECT <query2></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class UnionQuery : HealthMarketScience.Jackcess.Query.Query
-	{
-		public UnionQuery(string name, IList<Query.Row> rows, int objectId) : base(name, 
-			rows, objectId, Query.Type.UNION)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a UNION query, e.g.:
+    /// <code>SELECT <query1> UNION SELECT <query2></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class UnionQuery : HealthMarketScience.Jackcess.Query.Query
+    {
+        public UnionQuery(string name, IList<Query.Row> rows, int objectId) : base(name,
+            rows, objectId, Query.Type.UNION)
+        {
+        }
 
-		public virtual string GetUnionType()
-		{
-			return (HasFlag(QueryFormat.UNION_FLAG) ? QueryFormat.DEFAULT_TYPE : "ALL");
-		}
+        public virtual string GetUnionType()
+        {
+            return (HasFlag(QueryFormat.UNION_FLAG) ? QueryFormat.DEFAULT_TYPE : "ALL");
+        }
 
-		public virtual string GetUnionString1()
-		{
-			return GetUnionString(QueryFormat.UNION_PART1);
-		}
+        public virtual string GetUnionString1()
+        {
+            return GetUnionString(QueryFormat.UNION_PART1);
+        }
 
-		public virtual string GetUnionString2()
-		{
-			return GetUnionString(QueryFormat.UNION_PART2);
-		}
+        public virtual string GetUnionString2()
+        {
+            return GetUnionString(QueryFormat.UNION_PART2);
+        }
 
-		public override IList<string> GetOrderings()
-		{
-			return base.GetOrderings();
-		}
+        public override IList<string> GetOrderings()
+        {
+            return base.GetOrderings();
+        }
 
-		private string GetUnionString(string id)
-		{
-			foreach (Query.Row row in GetTableRows())
-			{
-				if (id.Equals(row.name2))
-				{
-					return CleanUnionString(row.expression);
-				}
-			}
-			throw new InvalidOperationException("Could not find union query with id " + id);
-		}
+        private string GetUnionString(string id)
+        {
+            foreach (Query.Row row in GetTableRows())
+            {
+                if (id.Equals(row.name2))
+                {
+                    return CleanUnionString(row.expression);
+                }
+            }
+            throw new InvalidOperationException("Could not find union query with id " + id);
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			builder.Append(GetUnionString1()).Append(QueryFormat.NEWLINE).Append("UNION ");
-			string unionType = GetUnionType();
-			if (!QueryFormat.DEFAULT_TYPE.Equals(unionType))
-			{
-				builder.Append(unionType).Append(' ');
-			}
-			builder.Append(GetUnionString2());
-			IList<string> orderings = GetOrderings();
-			if (!orderings.IsEmpty())
-			{
-				builder.Append(QueryFormat.NEWLINE).Append("ORDER BY ").Append(orderings);
-			}
-		}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            builder.Append(GetUnionString1()).Append(QueryFormat.NEWLINE).Append("UNION ");
+            string unionType = GetUnionType();
+            if (!QueryFormat.DEFAULT_TYPE.Equals(unionType))
+            {
+                builder.Append(unionType).Append(' ');
+            }
+            builder.Append(GetUnionString2());
+            IList<string> orderings = GetOrderings();
+            if (!orderings.IsEmpty())
+            {
+                builder.Append(QueryFormat.NEWLINE).Append("ORDER BY ").Append(orderings);
+            }
+        }
 
-		private static string CleanUnionString(string str)
-		{
-			return str.Trim().ReplaceAll("[\r\n]+", QueryFormat.NEWLINE);
-		}
-	}
+        private static string CleanUnionString(string str)
+        {
+            return str.Trim().ReplaceAll("[\r\n]+", QueryFormat.NEWLINE);
+        }
+    }
 }

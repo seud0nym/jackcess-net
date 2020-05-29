@@ -25,43 +25,42 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using System.Collections.Generic;
-using HealthMarketScience.Jackcess;
 using Sharpen;
+using System.Collections.Generic;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Simple concrete implementation of ImportFilter which just returns the given
-	/// values.
-	/// </summary>
-	/// <remarks>
-	/// Simple concrete implementation of ImportFilter which just returns the given
-	/// values.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public class SimpleImportFilter : ImportFilter
-	{
-		public static readonly HealthMarketScience.Jackcess.SimpleImportFilter INSTANCE = 
-			new HealthMarketScience.Jackcess.SimpleImportFilter();
+    /// <summary>
+    /// Simple concrete implementation of ImportFilter which just returns the given
+    /// values.
+    /// </summary>
+    /// <remarks>
+    /// Simple concrete implementation of ImportFilter which just returns the given
+    /// values.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public class SimpleImportFilter : ImportFilter
+    {
+        public static readonly HealthMarketScience.Jackcess.SimpleImportFilter INSTANCE =
+            new HealthMarketScience.Jackcess.SimpleImportFilter();
 
-		public SimpleImportFilter()
-		{
-		}
+        public SimpleImportFilter()
+        {
+        }
 
-		/// <exception cref="Sharpen.SQLException"></exception>
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual IList<Column> FilterColumns(IList<Column> destColumns, ResultSetMetaData
-			 srcColumns)
-		{
-			return destColumns;
-		}
+        /// <exception cref="Sharpen.SQLException"></exception>
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual IList<Column> FilterColumns(IList<Column> destColumns, ResultSetMetaData
+             srcColumns)
+        {
+            return destColumns;
+        }
 
-		/// <exception cref="Sharpen.SQLException"></exception>
-		/// <exception cref="System.IO.IOException"></exception>
-		public virtual object[] FilterRow(object[] row)
-		{
-			return row;
-		}
-	}
+        /// <exception cref="Sharpen.SQLException"></exception>
+        /// <exception cref="System.IO.IOException"></exception>
+        public virtual object[] FilterRow(object[] row)
+        {
+            return row;
+        }
+    }
 }

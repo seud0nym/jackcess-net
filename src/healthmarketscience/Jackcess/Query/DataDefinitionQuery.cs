@@ -27,38 +27,36 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>Concrete Query subclass which represents a DDL query.</summary>
-	/// <remarks>Concrete Query subclass which represents a DDL query.</remarks>
-	/// <author>James Ahlborn</author>
-	public class DataDefinitionQuery : HealthMarketScience.Jackcess.Query.Query
-	{
-		public DataDefinitionQuery(string name, IList<Query.Row> rows, int objectId) : base
-			(name, rows, objectId, Query.Type.DATA_DEFINITION)
-		{
-		}
+    /// <summary>Concrete Query subclass which represents a DDL query.</summary>
+    /// <remarks>Concrete Query subclass which represents a DDL query.</remarks>
+    /// <author>James Ahlborn</author>
+    public class DataDefinitionQuery : HealthMarketScience.Jackcess.Query.Query
+    {
+        public DataDefinitionQuery(string name, IList<Query.Row> rows, int objectId) : base
+            (name, rows, objectId, Query.Type.DATA_DEFINITION)
+        {
+        }
 
-		public virtual string GetDDLString()
-		{
-			return GetTypeRow().expression;
-		}
+        public virtual string GetDDLString()
+        {
+            return GetTypeRow().expression;
+        }
 
-		public override bool SupportsStandardClauses()
-		{
-			return false;
-		}
+        public override bool SupportsStandardClauses()
+        {
+            return false;
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			string ddl = GetDDLString();
-			if (ddl != null)
-			{
-				builder.Append(ddl);
-			}
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            string ddl = GetDDLString();
+            if (ddl != null)
+            {
+                builder.Append(ddl);
+            }
+        }
+    }
 }

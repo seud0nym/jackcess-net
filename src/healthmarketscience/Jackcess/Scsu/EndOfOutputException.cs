@@ -26,23 +26,22 @@ King of Prussia, PA 19406
 */
 
 using System;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Scsu
 {
-	/// <summary>The input string or input byte array ended prematurely</summary>
-	[System.Serializable]
-	public class EndOfOutputException : Exception
-	{
-		private const long serialVersionUID = 1L;
+    /// <summary>The input string or input byte array ended prematurely</summary>
+    [System.Serializable]
+    public class EndOfOutputException : Exception
+    {
+        private const long serialVersionUID = 1L;
 
-		public EndOfOutputException() : base("The input string or input byte array ended prematurely"
-			)
-		{
-		}
+        public EndOfOutputException() : base("The input string or input byte array ended prematurely"
+            )
+        {
+        }
 
-		public EndOfOutputException(string s) : base(s)
-		{
-		}
-	}
+        public EndOfOutputException(string s) : base(s)
+        {
+        }
+    }
 }

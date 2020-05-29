@@ -25,53 +25,52 @@ Suite 200
 King of Prussia, PA 19406
 */
 
+using Sharpen;
 using System;
 using System.IO;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Concrete implementation of ColumnMatcher which tests textual columns
-	/// case-insensitively (
-	/// <see cref="DataType.TEXT">DataType.TEXT</see>
-	/// and
-	/// <see cref="DataType.MEMO">DataType.MEMO</see>
-	/// ), and
-	/// all other columns using simple equality.
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class CaseInsensitiveColumnMatcher : ColumnMatcher
-	{
-		public static readonly HealthMarketScience.Jackcess.CaseInsensitiveColumnMatcher 
-			INSTANCE = new HealthMarketScience.Jackcess.CaseInsensitiveColumnMatcher();
+    /// <summary>
+    /// Concrete implementation of ColumnMatcher which tests textual columns
+    /// case-insensitively (
+    /// <see cref="DataType.TEXT">DataType.TEXT</see>
+    /// and
+    /// <see cref="DataType.MEMO">DataType.MEMO</see>
+    /// ), and
+    /// all other columns using simple equality.
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class CaseInsensitiveColumnMatcher : ColumnMatcher
+    {
+        public static readonly HealthMarketScience.Jackcess.CaseInsensitiveColumnMatcher
+            INSTANCE = new HealthMarketScience.Jackcess.CaseInsensitiveColumnMatcher();
 
-		public CaseInsensitiveColumnMatcher()
-		{
-		}
+        public CaseInsensitiveColumnMatcher()
+        {
+        }
 
-		public virtual bool Matches(Table table, string columnName, object value1, object
-			 value2)
-		{
-			if (!DataTypeUtil.IsTextual(table.GetColumn(columnName).GetDataType()))
-			{
-				// use simple equality
-				return SimpleColumnMatcher.INSTANCE.Matches(table, columnName, value1, value2);
-			}
-			// convert both values to Strings and compare case-insensitively
-			try
-			{
-				CharSequence cs1 = Column.ToCharSequence(value1);
-				CharSequence cs2 = Column.ToCharSequence(value2);
-				return ((cs1 == cs2) || ((cs1 != null) && (cs2 != null) && Sharpen.Runtime.EqualsIgnoreCase
-					(cs1.ToString(), cs2.ToString())));
-			}
-			catch (IOException e)
-			{
-				throw new InvalidOperationException("Could not read column " + columnName + " value"
-					, e);
-			}
-		}
-	}
+        public virtual bool Matches(Table table, string columnName, object value1, object
+             value2)
+        {
+            if (!DataTypeUtil.IsTextual(table.GetColumn(columnName).GetDataType()))
+            {
+                // use simple equality
+                return SimpleColumnMatcher.INSTANCE.Matches(table, columnName, value1, value2);
+            }
+            // convert both values to Strings and compare case-insensitively
+            try
+            {
+                CharSequence cs1 = Column.ToCharSequence(value1);
+                CharSequence cs2 = Column.ToCharSequence(value2);
+                return ((cs1 == cs2) || ((cs1 != null) && (cs2 != null) && Sharpen.Runtime.EqualsIgnoreCase
+                    (cs1.ToString(), cs2.ToString())));
+            }
+            catch (IOException e)
+            {
+                throw new InvalidOperationException("Could not read column " + columnName + " value"
+                    , e);
+            }
+        }
+    }
 }

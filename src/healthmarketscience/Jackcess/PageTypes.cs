@@ -25,31 +25,28 @@ Suite 200
 King of Prussia, PA 19406
 */
 
-using HealthMarketScience.Jackcess;
-using Sharpen;
-
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>Codes for page types</summary>
-	/// <author>Tim McCune</author>
-	public abstract class PageTypes
-	{
-		/// <summary>invalid page type</summary>
-		public const byte INVALID = unchecked((byte)unchecked((int)(0x00)));
+    /// <summary>Codes for page types</summary>
+    /// <author>Tim McCune</author>
+    public abstract class PageTypes
+    {
+        /// <summary>invalid page type</summary>
+        public const byte INVALID = unchecked((byte)unchecked((int)(0x00)));
 
-		/// <summary>Data page</summary>
-		public const byte DATA = unchecked((byte)unchecked((int)(0x01)));
+        /// <summary>Data page</summary>
+        public const byte DATA = unchecked((byte)unchecked((int)(0x01)));
 
-		/// <summary>Table definition page</summary>
-		public const byte TABLE_DEF = unchecked((byte)unchecked((int)(0x02)));
+        /// <summary>Table definition page</summary>
+        public const byte TABLE_DEF = unchecked((byte)unchecked((int)(0x02)));
 
-		/// <summary>intermediate index page pointing to other index pages</summary>
-		public const byte INDEX_NODE = unchecked((byte)unchecked((int)(0x03)));
+        /// <summary>intermediate index page pointing to other index pages</summary>
+        public const byte INDEX_NODE = unchecked((byte)unchecked((int)(0x03)));
 
-		/// <summary>leaf index page containing actual entries</summary>
-		public const byte INDEX_LEAF = unchecked((byte)unchecked((int)(0x04)));
+        /// <summary>leaf index page containing actual entries</summary>
+        public const byte INDEX_LEAF = unchecked((byte)unchecked((int)(0x04)));
 
-		/// <summary>Table usage map page</summary>
-		public const byte USAGE_MAP = unchecked((byte)unchecked((int)(0x05)));
-	}
+        /// <summary>Table usage map page</summary>
+        public const byte USAGE_MAP = unchecked((byte)unchecked((int)(0x05)));
+    }
 }

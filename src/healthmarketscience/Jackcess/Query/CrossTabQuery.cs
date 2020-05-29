@@ -27,70 +27,68 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a crosstab/pivot query, e.g.:
-	/// <code>TRANSFORM <expr> SELECT <query> PIVOT <expr></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class CrossTabQuery : BaseSelectQuery
-	{
-		public CrossTabQuery(string name, IList<Query.Row> rows, int objectId) : base(name
-			, rows, objectId, Query.Type.CROSS_TAB)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a crosstab/pivot query, e.g.:
+    /// <code>TRANSFORM <expr> SELECT <query> PIVOT <expr></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class CrossTabQuery : BaseSelectQuery
+    {
+        public CrossTabQuery(string name, IList<Query.Row> rows, int objectId) : base(name
+            , rows, objectId, Query.Type.CROSS_TAB)
+        {
+        }
 
-		protected internal virtual Query.Row GetTransformRow()
-		{
-			return GetUniqueRow(FilterRowsByNotFlag(base.GetColumnRows(), (short)(QueryFormat.CROSSTAB_PIVOT_FLAG
-				 | QueryFormat.CROSSTAB_NORMAL_FLAG)));
-		}
+        protected internal virtual Query.Row GetTransformRow()
+        {
+            return GetUniqueRow(FilterRowsByNotFlag(base.GetColumnRows(), (short)(QueryFormat.CROSSTAB_PIVOT_FLAG
+                 | QueryFormat.CROSSTAB_NORMAL_FLAG)));
+        }
 
-		public override IList<Query.Row> GetColumnRows()
-		{
-			return FilterRowsByFlag(base.GetColumnRows(), QueryFormat.CROSSTAB_NORMAL_FLAG);
-		}
+        public override IList<Query.Row> GetColumnRows()
+        {
+            return FilterRowsByFlag(base.GetColumnRows(), QueryFormat.CROSSTAB_NORMAL_FLAG);
+        }
 
-		public override IList<Query.Row> GetGroupByRows()
-		{
-			return FilterRowsByFlag(base.GetGroupByRows(), QueryFormat.CROSSTAB_NORMAL_FLAG);
-		}
+        public override IList<Query.Row> GetGroupByRows()
+        {
+            return FilterRowsByFlag(base.GetGroupByRows(), QueryFormat.CROSSTAB_NORMAL_FLAG);
+        }
 
-		protected internal virtual Query.Row GetPivotRow()
-		{
-			return GetUniqueRow(FilterRowsByFlag(base.GetColumnRows(), QueryFormat.CROSSTAB_PIVOT_FLAG));
-		}
+        protected internal virtual Query.Row GetPivotRow()
+        {
+            return GetUniqueRow(FilterRowsByFlag(base.GetColumnRows(), QueryFormat.CROSSTAB_PIVOT_FLAG));
+        }
 
-		public virtual string GetTransformExpression()
-		{
-			Query.Row row = GetTransformRow();
-			if (row.expression == null)
-			{
-				return null;
-			}
-			// note column expression are always quoted appropriately
-			StringBuilder builder = new StringBuilder(row.expression);
-			return ToAlias(builder, row.name1).ToString();
-		}
+        public virtual string GetTransformExpression()
+        {
+            Query.Row row = GetTransformRow();
+            if (row.expression == null)
+            {
+                return null;
+            }
+            // note column expression are always quoted appropriately
+            StringBuilder builder = new StringBuilder(row.expression);
+            return ToAlias(builder, row.name1).ToString();
+        }
 
-		public virtual string GetPivotExpression()
-		{
-			return GetPivotRow().expression;
-		}
+        public virtual string GetPivotExpression()
+        {
+            return GetPivotRow().expression;
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			string transformExpr = GetTransformExpression();
-			if (transformExpr != null)
-			{
-				builder.Append("TRANSFORM ").Append(transformExpr).Append(QueryFormat.NEWLINE);
-			}
-			ToSQLSelectString(builder, true);
-			builder.Append(QueryFormat.NEWLINE).Append("PIVOT ").Append(GetPivotExpression());
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            string transformExpr = GetTransformExpression();
+            if (transformExpr != null)
+            {
+                builder.Append("TRANSFORM ").Append(transformExpr).Append(QueryFormat.NEWLINE);
+            }
+            ToSQLSelectString(builder, true);
+            builder.Append(QueryFormat.NEWLINE).Append("PIVOT ").Append(GetPivotExpression());
+        }
+    }
 }

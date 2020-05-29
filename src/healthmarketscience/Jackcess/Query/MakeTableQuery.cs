@@ -27,47 +27,45 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents an table creation query, e.g.:
-	/// <code>SELECT <query> INTO <newTable></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class MakeTableQuery : BaseSelectQuery
-	{
-		public MakeTableQuery(string name, IList<Query.Row> rows, int objectId) : base(name
-			, rows, objectId, Query.Type.MAKE_TABLE)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents an table creation query, e.g.:
+    /// <code>SELECT <query> INTO <newTable></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class MakeTableQuery : BaseSelectQuery
+    {
+        public MakeTableQuery(string name, IList<Query.Row> rows, int objectId) : base(name
+            , rows, objectId, Query.Type.MAKE_TABLE)
+        {
+        }
 
-		public virtual string GetTargetTable()
-		{
-			return GetTypeRow().name1;
-		}
+        public virtual string GetTargetTable()
+        {
+            return GetTypeRow().name1;
+        }
 
-		public virtual string GetRemoteDbPath()
-		{
-			return GetTypeRow().name2;
-		}
+        public virtual string GetRemoteDbPath()
+        {
+            return GetTypeRow().name2;
+        }
 
-		public virtual string GetRemoteDbType()
-		{
-			return GetTypeRow().expression;
-		}
+        public virtual string GetRemoteDbType()
+        {
+            return GetTypeRow().expression;
+        }
 
-		protected internal override void ToSelectInto(StringBuilder builder)
-		{
-			builder.Append(" INTO ").Append(GetTargetTable());
-			ToRemoteDb(builder, GetRemoteDbPath(), GetRemoteDbType());
-		}
+        protected internal override void ToSelectInto(StringBuilder builder)
+        {
+            builder.Append(" INTO ").Append(GetTargetTable());
+            ToRemoteDb(builder, GetRemoteDbPath(), GetRemoteDbType());
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			ToSQLSelectString(builder, true);
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            ToSQLSelectString(builder, true);
+        }
+    }
 }

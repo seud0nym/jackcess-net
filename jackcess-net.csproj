@@ -50,6 +50,8 @@
   <ItemGroup>
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
     <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
+    <PackageReference Include="sqlite-net-sqlcipher" Version="1.7.335" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
   </ItemGroup>
 
 </Project>

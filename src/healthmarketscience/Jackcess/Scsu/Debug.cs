@@ -27,178 +27,176 @@ King of Prussia, PA 19406
 
 using System;
 using System.Text;
-using HealthMarketScience.Jackcess.Scsu;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Scsu
 {
-	/// <summary>A number of helpful output routines for debugging.</summary>
-	/// <remarks>
-	/// A number of helpful output routines for debugging. Output can be centrally
-	/// enabled or disabled by calling Debug.set(true/false); All methods are
-	/// statics;
-	/// </remarks>
-	public class Debug
-	{
-		private static bool ENABLED = false;
+    /// <summary>A number of helpful output routines for debugging.</summary>
+    /// <remarks>
+    /// A number of helpful output routines for debugging. Output can be centrally
+    /// enabled or disabled by calling Debug.set(true/false); All methods are
+    /// statics;
+    /// </remarks>
+    public class Debug
+    {
+        private static bool ENABLED = false;
 
-		public static bool IsDebugEnabled()
-		{
-			return ENABLED;
-		}
+        public static bool IsDebugEnabled()
+        {
+            return ENABLED;
+        }
 
-		// debugging helper
-		public static void Out(char[] chars)
-		{
-			Out(chars, 0);
-		}
+        // debugging helper
+        public static void Out(char[] chars)
+        {
+            Out(chars, 0);
+        }
 
-		public static void Out(char[] chars, int iStart)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			StringBuilder msg = new StringBuilder();
-			for (int i = iStart; i < chars.Length; i++)
-			{
-				if (chars[i] >= 0 && chars[i] <= 26)
-				{
-					msg.Append("^" + (char)(chars[i] + unchecked((int)(0x40))));
-				}
-				else
-				{
-					if (chars[i] <= 255)
-					{
-						msg.Append(chars[i]);
-					}
-					else
-					{
-						msg.Append("\\u" + Sharpen.Extensions.ToString(chars[i], 16));
-					}
-				}
-			}
-			System.Console.Out.WriteLine(msg.ToString());
-		}
+        public static void Out(char[] chars, int iStart)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            StringBuilder msg = new StringBuilder();
+            for (int i = iStart; i < chars.Length; i++)
+            {
+                if (chars[i] >= 0 && chars[i] <= 26)
+                {
+                    msg.Append("^" + (char)(chars[i] + unchecked((int)(0x40))));
+                }
+                else
+                {
+                    if (chars[i] <= 255)
+                    {
+                        msg.Append(chars[i]);
+                    }
+                    else
+                    {
+                        msg.Append("\\u" + Sharpen.Extensions.ToString(chars[i], 16));
+                    }
+                }
+            }
+            System.Console.Out.WriteLine(msg.ToString());
+        }
 
-		public static void Out(byte[] bytes)
-		{
-			Out(bytes, 0);
-		}
+        public static void Out(byte[] bytes)
+        {
+            Out(bytes, 0);
+        }
 
-		public static void Out(byte[] bytes, int iStart)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			StringBuilder msg = new StringBuilder();
-			for (int i = iStart; i < bytes.Length; i++)
-			{
-				msg.Append(bytes[i] + ",");
-			}
-			System.Console.Out.WriteLine(msg.ToString());
-		}
+        public static void Out(byte[] bytes, int iStart)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            StringBuilder msg = new StringBuilder();
+            for (int i = iStart; i < bytes.Length; i++)
+            {
+                msg.Append(bytes[i] + ",");
+            }
+            System.Console.Out.WriteLine(msg.ToString());
+        }
 
-		public static void Out(string str)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(str);
-		}
+        public static void Out(string str)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(str);
+        }
 
-		public static void Out(string msg, int iData)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + iData);
-		}
+        public static void Out(string msg, int iData)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + iData);
+        }
 
-		public static void Out(string msg, char ch)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + "[U+" + Sharpen.Extensions.ToString(ch, 16) + 
-				"]" + ch);
-		}
+        public static void Out(string msg, char ch)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + "[U+" + Sharpen.Extensions.ToString(ch, 16) +
+                "]" + ch);
+        }
 
-		public static void Out(string msg, byte bData)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + bData);
-		}
+        public static void Out(string msg, byte bData)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + bData);
+        }
 
-		public static void Out(string msg, string str)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + str);
-		}
+        public static void Out(string msg, string str)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + str);
+        }
 
-		public static void Out(string msg, char[] data)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg);
-			Out(data);
-		}
+        public static void Out(string msg, char[] data)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg);
+            Out(data);
+        }
 
-		public static void Out(string msg, byte[] data)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg);
-			Out(data);
-		}
+        public static void Out(string msg, byte[] data)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg);
+            Out(data);
+        }
 
-		public static void Out(string msg, char[] data, int iStart)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + "(" + iStart + "): ");
-			Out(data, iStart);
-		}
+        public static void Out(string msg, char[] data, int iStart)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + "(" + iStart + "): ");
+            Out(data, iStart);
+        }
 
-		public static void Out(string msg, byte[] data, int iStart)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg + "(" + iStart + "): ");
-			Out(data, iStart);
-		}
+        public static void Out(string msg, byte[] data, int iStart)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg + "(" + iStart + "): ");
+            Out(data, iStart);
+        }
 
-		public static void Set(bool on)
-		{
-			ENABLED = on;
-		}
+        public static void Set(bool on)
+        {
+            ENABLED = on;
+        }
 
-		public static void Out(string msg, Exception error)
-		{
-			if (!ENABLED)
-			{
-				return;
-			}
-			System.Console.Out.WriteLine(msg);
-			Sharpen.Runtime.PrintStackTrace(error, System.Console.Out);
-		}
-	}
+        public static void Out(string msg, Exception error)
+        {
+            if (!ENABLED)
+            {
+                return;
+            }
+            System.Console.Out.WriteLine(msg);
+            Sharpen.Runtime.PrintStackTrace(error, System.Console.Out);
+        }
+    }
 }

@@ -26,50 +26,48 @@ King of Prussia, PA 19406
 */
 
 using System;
-using HealthMarketScience.Jackcess;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess
 {
-	/// <summary>
-	/// Handler for errors encountered while reading a column of row data from a
-	/// Table.
-	/// </summary>
-	/// <remarks>
-	/// Handler for errors encountered while reading a column of row data from a
-	/// Table.  An instance of this class may be configured at the Database, Table,
-	/// or Cursor level to customize error handling as desired.  The default
-	/// instance used is
-	/// <see cref="Database.DEFAULT_ERROR_HANDLER">Database.DEFAULT_ERROR_HANDLER</see>
-	/// , which just
-	/// rethrows any exceptions encountered.
-	/// </remarks>
-	/// <author>James Ahlborn</author>
-	public interface ErrorHandler
-	{
-		/// <summary>
-		/// Handles an error encountered while reading a column of data from a Table
-		/// row.
-		/// </summary>
-		/// <remarks>
-		/// Handles an error encountered while reading a column of data from a Table
-		/// row.  Handler may either throw an exception (which will be propagated
-		/// back to the caller) or return a replacement for this row's column value
-		/// (in which case the row will continue to be read normally).
-		/// </remarks>
-		/// <param name="column">the info for the column being read</param>
-		/// <param name="columnData">
-		/// the actual column data for the column being read (which
-		/// may be
-		/// <code>null</code>
-		/// depending on when the exception
-		/// was thrown during the reading process)
-		/// </param>
-		/// <param name="rowState">the current row state for the caller</param>
-		/// <param name="error">the error that was encountered</param>
-		/// <returns>replacement for this row's column</returns>
-		/// <exception cref="System.IO.IOException"></exception>
-		object HandleRowError(Column column, byte[] columnData, Table.RowState rowState, 
-			Exception error);
-	}
+    /// <summary>
+    /// Handler for errors encountered while reading a column of row data from a
+    /// Table.
+    /// </summary>
+    /// <remarks>
+    /// Handler for errors encountered while reading a column of row data from a
+    /// Table.  An instance of this class may be configured at the Database, Table,
+    /// or Cursor level to customize error handling as desired.  The default
+    /// instance used is
+    /// <see cref="Database.DEFAULT_ERROR_HANDLER">Database.DEFAULT_ERROR_HANDLER</see>
+    /// , which just
+    /// rethrows any exceptions encountered.
+    /// </remarks>
+    /// <author>James Ahlborn</author>
+    public interface ErrorHandler
+    {
+        /// <summary>
+        /// Handles an error encountered while reading a column of data from a Table
+        /// row.
+        /// </summary>
+        /// <remarks>
+        /// Handles an error encountered while reading a column of data from a Table
+        /// row.  Handler may either throw an exception (which will be propagated
+        /// back to the caller) or return a replacement for this row's column value
+        /// (in which case the row will continue to be read normally).
+        /// </remarks>
+        /// <param name="column">the info for the column being read</param>
+        /// <param name="columnData">
+        /// the actual column data for the column being read (which
+        /// may be
+        /// <code>null</code>
+        /// depending on when the exception
+        /// was thrown during the reading process)
+        /// </param>
+        /// <param name="rowState">the current row state for the caller</param>
+        /// <param name="error">the error that was encountered</param>
+        /// <returns>replacement for this row's column</returns>
+        /// <exception cref="System.IO.IOException"></exception>
+        object HandleRowError(Column column, byte[] columnData, Table.RowState rowState,
+            Exception error);
+    }
 }

@@ -27,27 +27,25 @@ King of Prussia, PA 19406
 
 using System.Collections.Generic;
 using System.Text;
-using HealthMarketScience.Jackcess.Query;
-using Sharpen;
 
 namespace HealthMarketScience.Jackcess.Query
 {
-	/// <summary>
-	/// Concrete Query subclass which represents a delete query, e.g.:
-	/// <code>DELETE * FROM <table> WHERE <expression></code>
-	/// </summary>
-	/// <author>James Ahlborn</author>
-	public class DeleteQuery : BaseSelectQuery
-	{
-		public DeleteQuery(string name, IList<Query.Row> rows, int objectId) : base(name, 
-			rows, objectId, Query.Type.DELETE)
-		{
-		}
+    /// <summary>
+    /// Concrete Query subclass which represents a delete query, e.g.:
+    /// <code>DELETE * FROM <table> WHERE <expression></code>
+    /// </summary>
+    /// <author>James Ahlborn</author>
+    public class DeleteQuery : BaseSelectQuery
+    {
+        public DeleteQuery(string name, IList<Query.Row> rows, int objectId) : base(name,
+            rows, objectId, Query.Type.DELETE)
+        {
+        }
 
-		protected internal override void ToSQLString(StringBuilder builder)
-		{
-			builder.Append("DELETE ");
-			ToSQLSelectString(builder, false);
-		}
-	}
+        protected internal override void ToSQLString(StringBuilder builder)
+        {
+            builder.Append("DELETE ");
+            ToSQLSelectString(builder, false);
+        }
+    }
 }
