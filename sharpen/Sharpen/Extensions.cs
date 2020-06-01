@@ -520,37 +520,37 @@ namespace Sharpen
 			}
 		}
 
-		public static string[] Split (this string str, string regex)
-		{
-			return str.Split (regex, 0);
-		}
+		//public static string[] Split (this string str, string regex)
+		//{
+		//	return str.Split (regex, 0);
+		//}
 		
-		public static string[] Split (this string str, string regex, int limit)
-		{
-			Regex rgx = new Regex (regex);
-			List<string> list = new List<string> ();
-			int startIndex = 0;
-			if (limit != 1) {
-				int nm = 1;
-				foreach (Match match in rgx.Matches (str)) {
-					list.Add (str.Substring (startIndex, match.Index - startIndex));
-					startIndex = match.Index + match.Length;
-					if (limit > 0 && ++nm == limit)
-						break;
-				}
-			}
-			if (startIndex < str.Length) {
-				list.Add (str.Substring (startIndex));
-			}
-			if (limit >= 0) {
-				int count = list.Count - 1;
-				while ((count >= 0) && (list[count].Length == 0)) {
-					count--;
-				}
-				list.RemoveRange (count + 1, (list.Count - count) - 1);
-			}
-			return list.ToArray ();
-		}
+		//public static string[] Split (this string str, string regex, int limit)
+		//{
+		//	Regex rgx = new Regex (regex);
+		//	List<string> list = new List<string> ();
+		//	int startIndex = 0;
+		//	if (limit != 1) {
+		//		int nm = 1;
+		//		foreach (Match match in rgx.Matches (str)) {
+		//			list.Add (str.Substring (startIndex, match.Index - startIndex));
+		//			startIndex = match.Index + match.Length;
+		//			if (limit > 0 && ++nm == limit)
+		//				break;
+		//		}
+		//	}
+		//	if (startIndex < str.Length) {
+		//		list.Add (str.Substring (startIndex));
+		//	}
+		//	if (limit >= 0) {
+		//		int count = list.Count - 1;
+		//		while ((count >= 0) && (list[count].Length == 0)) {
+		//			count--;
+		//		}
+		//		list.RemoveRange (count + 1, (list.Count - count) - 1);
+		//	}
+		//	return list.ToArray ();
+		//}
 
 		public static IList<T> SubList<T> (this IList<T> list, int start, int len)
 		{

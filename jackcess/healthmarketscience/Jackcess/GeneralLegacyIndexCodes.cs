@@ -446,7 +446,7 @@ namespace HealthMarketScience.Jackcess
             string prefix = Sharpen.Runtime.Substring(codeLine, 0, 1);
             string suffix = ((codeLine.Length > 1) ? Sharpen.Runtime.Substring(codeLine, 1) :
                 string.Empty);
-            string[] codeStrings = suffix.Split(",", -1);
+            string[] codeStrings = suffix.Split(','); //suffix.Split(",", -1);
             switch (prefixMap.Get(prefix))
             {
                 case GeneralLegacyIndexCodes.Type.SIMPLE:
